@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friendship Challenge ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #a18cd1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.card {
+    width: 100%;
+    max-width: 470px;
+    padding: 30px 22px;
+    background: rgba(255,255,255,0.96);
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+}
+
+.heart {
+    font-size: 65px;
+    animation: beat 1s infinite;
+}
+
+@keyframes beat {
+    50% { transform: scale(1.2); }
+}
+
+h1 {
+    color: #e84370;
+    margin: 12px 0;
+}
+
+p {
+    color: #555;
+    line-height: 1.7;
+    margin: 12px 0;
+}
+
+.task {
+    background: #fff0f5;
+    padding: 17px;
+    margin: 16px 0;
+    border-radius: 16px;
+    border: 1px solid #ffd1df;
+}
+
+.task h3 {
+    color: #d6336c;
+    margin-bottom: 12px;
+}
+
+button {
+    border: none;
+    border-radius: 25px;
+    padding: 12px 17px;
+    margin: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #ff4d79;
+    color: white;
+    transition: 0.25s;
+}
+
+button:hover {
+    transform: scale(1.07);
+    background: #e84370;
+}
+
+button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.progress-container {
+    width: 100%;
+    height: 13px;
+    background: #eee;
+    border-radius: 20px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff4d79, #a18cd1);
+    transition: width 0.4s;
+}
+
+#progress {
+    color: #d6336c;
+    font-weight: bold;
+}
+
+.feedback {
+    color: #d6336c;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 22px;
+    margin-top: 8px;
+}
+
+#surprise {
+    display: none;
+    background: #fff0f5;
+    padding: 20px;
+    border-radius: 18px;
+    margin-top: 20px;
+    animation: pop 0.5s;
+}
+
+@keyframes pop {
+    from {transform: scale(0.5); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+.float {
+    position: fixed;
+    bottom: -30px;
+    animation: floatUp 6s linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+#finalMessage {
+    color: #e84370;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="heart">🥺❤️</div>
+
+    <h1>Hey You! 😒</h1>
+
+    <p>
+        I know you're very busy ignoring my messages 😂
+        <br>
+        But today you have a special mission!
+        <br>
+        Complete these 4 tasks to unlock your surprise. 💌
+    </p>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div id="progress">Completed: 0 / 4</div>
+
+    <!-- TASK 1 -->
+    <div class="task" id="task1">
+        <h3>🎯 Task 1: Are you rude?</h3>
+        <p>Tell me honestly!</p>
+
+        <button onclick="completeTask(1, 'I knew it! 😂')">
+            No, I'm innocent 😇
+        </button>
+
+        <button onclick="completeTask(1, 'At least you admit it! 😭')">
+            Yes, a little 😎
+        </button>
+
+        <div class="feedback" id="feedback1"></div>
+    </div>
+
+    <!-- TASK 2 -->
+    <div class="task" id="task2">
+        <h3>😂 Task 2: Choose your mood</h3>
+        <p>What is your mood today?</p>
+
+        <button onclick="completeTask(2, 'Haha! Keep smiling! ❤️')">
+            😂
+        </button>
+
+        <button onclick="completeTask(2, 'Aww! Sending hugs! 🥺')">
+            🥺
+        </button>
+
+        <button onclick="completeTask(2, 'Lots of love! 💕')">
+            ❤️
+        </button>
+
+        <div class="feedback" id="feedback2"></div>
+    </div>
+
+    <!-- TASK 3 -->
+    <div class="task" id="task3">
+        <h3>🤔 Task 3: Friendship test</h3>
+        <p>Who is more annoying?</p>
+
+        <button onclick="completeTask(3, 'Correct answer! Obviously me! 🤣')">
+            You 😜
+        </button>
+
+        <button onclick="completeTask(3, 'Wrong! You are more annoying! 😂')">
+            Me 🤣
+        </button>
+
+        <div class="feedback" id="feedback3"></div>
+    </div>
+
+    <!-- TASK 4 -->
+    <div class="task" id="task4">
+        <h3>🤝 Task 4: Final promise</h3>
+        <p>Will you reply to my messages now?</p>
+
+        <button onclick="completeTask(4, 'Promise accepted! ❤️')">
+            Yes, I promise! ❤️
+        </button>
+
+        <button onclick="completeTask(4, 'Haha! At least you are honest! 😂')">
+            I'll try 😅
+        </button>
+
+        <div class="feedback" id="feedback4"></div>
+    </div>
+
+    <!-- FINAL SURPRISE -->
+    <div id="surprise">
+        <div class="heart">🎉❤️</div>
+        <h1>Mission Completed!</h1>
+
+        <p id="finalMessage">
+            Congratulations!
+        </p>
+
+        <p>
+            You have officially passed my friendship test.
+            😂
+            <br><br>
+            But remember...
+            <br>
+            A little reply can make someone's day!
+            ❤️
+        </p>
+
+        <h2>Now go and reply! 💌</h2>
+
+        <button onclick="restartGame()">
+            Play Again 🔄
+        </button>
+    </div>
+
+</div>
+
+<script>
+
+let completedTasks = new Set();
+
+function completeTask(taskNumber, message) {
+
+    // Prevent completing the same task twice
+    if (completedTasks.has(taskNumber)) {
+        return;
+    }
+
+    completedTasks.add(taskNumber);
+
+    // Show feedback
+    document.getElementById("feedback" + taskNumber)
+        .textContent = message;
+
+    // Disable buttons in completed task
+    let task = document.getElementById("task" + taskNumber);
+    let buttons = task.querySelectorAll("button");
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+
+    // Update progress
+    let count = completedTasks.size;
+    let percentage = (count / 4) * 100;
+
+    document.getElementById("progress").textContent =
+        "Completed: " + count + " / 4";
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+
+    // Check all tasks
+    if (count === 4) {
+        setTimeout(unlockSurprise, 600);
+    }
+}
+
+function unlockSurprise() {
+
+    document.getElementById("surprise").style.display = "block";
+
+    document.getElementById("finalMessage").textContent =
+        "You completed all 4 friendship challenges! 🏆";
+
+    createHearts();
+
+    document.getElementById("surprise").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function createHearts() {
+
+    for (let i = 0; i < 35; i++) {
+
+        let heart = document.createElement("div");
+
+        heart.className = "float";
+        heart.textContent = ["❤️", "💕", "💗", "🎉", "🥳"]
+            [Math.floor(Math.random() * 5)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration =
+            (3 + Math.random() * 4) + "s";
+
+        heart.style.fontSize =
+            (20 + Math.random() * 20) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 7000);
+    }
+}
+
+function restartGame() {
+
+    completedTasks.clear();
+
+    for (let i = 1; i <= 4; i++) {
+
+        document.getElementById("feedback" + i).textContent = "";
+
+        let buttons = document.getElementById("task" + i)
+            .querySelectorAll("button");
+
+        buttons.forEach(button => {
+            button.disabled = false;
+        });
+    }
+
+    document.getElementById("progress").textContent =
+        "Completed: 0 / 4";
+
+    document.getElementById("progressBar").style.width = "0%";
+
+    document.getElementById("surprise").style.display = "none";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+// Background floating hearts
+setInterval(() => {
+
+    let heart = document.createElement("div");
+
+    heart.className = "float";
+    heart.textContent = ["❤️", "💕", "💗", "🥺"]
+        [Math.floor(Math.random() * 4)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = "6s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+
+}, 900);
+
+</script>
+
+</body>
+</html>
